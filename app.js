@@ -5,6 +5,7 @@ const connectDB = require("./DbConfig/databaseConnection");
 const challengeRoutes = require("./routes/challengeRoutes");
 const SubscribeToNewsLetter = require("./routes/NewsLetterRoute");
 const authRoutes = require("./routes/authRoutes");
+const cors= require("cors");
 
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./DbConfig/swagger");
