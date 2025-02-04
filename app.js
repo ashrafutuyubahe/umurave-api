@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./DbConfig/databaseConnection");
 const challengeRoutes= require("./routes/challengeRoutes");
 const SubscribeToNewsLetter= require('./routes/NewsLetterRoute');
+const authRoutes= require("./routes/authRoutes");
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 connectDB();
@@ -12,6 +13,8 @@ connectDB();
 
 app.use(express.json());
 
+
+app.use("/api/v1/auth",authRoutes);
 app.use("/api/v1",challengeRoutes);
 app.use("/api/v1/news-letter",SubscribeToNewsLetter)
 
