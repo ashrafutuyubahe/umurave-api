@@ -11,7 +11,7 @@ const authController = require('../Controllers/authController');
 
 /**
  * @swagger
- * /auth/register:
+ * /api/v1/auth/register:
  *   post:
  *     summary: Register a new user
  *     description: Registers a new user with an email and password.
@@ -23,7 +23,10 @@ const authController = require('../Controllers/authController');
  *           schema:
  *             type: object
  *             properties:
- *               email:
+ *               userName:
+ *                 type: string
+ *                 example: "John Doe"
+ *               userEmail:
  *                 type: string
  *                 example: "user@example.com"
  *               password:
@@ -33,7 +36,7 @@ const authController = require('../Controllers/authController');
  *       201:
  *         description: User successfully registered
  *       400:
- *         description: Bad request, invalid input data
+ *         description: Bad request, user already exists with this email
  *       500:
  *         description: Internal server error
  */
@@ -41,7 +44,7 @@ router.post('/register', authController.registerUser);
 
 /**
  * @swagger
- * /auth/login:
+ * /api/v1/auth/login:
  *   post:
  *     summary: Log in a user
  *     description: Logs in a user and returns a token.
@@ -53,7 +56,7 @@ router.post('/register', authController.registerUser);
  *           schema:
  *             type: object
  *             properties:
- *               email:
+ *               userEmail:
  *                 type: string
  *                 example: "user@example.com"
  *               password:
@@ -79,7 +82,7 @@ router.post('/login', authController.loginUser);
 
 /**
  * @swagger
- * /auth/logout:
+ * /api/v1/auth/logout:
  *   post:
  *     summary: Log out a user
  *     description: Logs out the user by invalidating their session or token.

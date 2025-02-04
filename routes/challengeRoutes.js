@@ -1,3 +1,5 @@
+// routes/challengeRoutes.js
+
 const express = require("express");
 const router = express.Router();
 
@@ -12,7 +14,7 @@ const challengeController = require("../Controllers/ChallengeController");
 
 /**
  * @swagger
- * /challenges/create:
+ * /api/v1/challenges/create:
  *   post:
  *     summary: Create a new challenge
  *     description: Creates a new challenge with the provided details.
@@ -24,21 +26,65 @@ const challengeController = require("../Controllers/ChallengeController");
  *           schema:
  *             type: object
  *             properties:
- *               title:
+ *               challengeTitle:
  *                 type: string
  *                 example: "Coding Challenge"
- *               description:
+ *               deadline:
  *                 type: string
- *                 example: "Solve 5 programming problems in 24 hours."
- *               difficulty:
+ *                 format: date
+ *                 example: "2025-05-01"
+ *               duration:
  *                 type: string
- *                 enum: [easy, medium, hard]
- *                 example: "medium"
+ *                 example: "48 hours"
+ *               moneyPrize:
+ *                 type: number
+ *                 example: 5000
+ *               contactEmail:
+ *                 type: string
+ *                 example: "user@example.com"
+ *               projectDescription:
+ *                 type: string
+ *                 example: "Solve programming problems."
+ *               projectBrief:
+ *                 type: string
+ *                 example: "A coding challenge for developers."
+ *               projectDescriptionAndTasks:
+ *                 type: string
+ *                 example: "Complete five tasks in 48 hours."
  *     responses:
  *       201:
  *         description: Challenge created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Challenge created successfully"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     challengeTitle:
+ *                       type: string
+ *                     deadline:
+ *                       type: string
+ *                     duration:
+ *                       type: string
+ *                     moneyPrize:
+ *                       type: number
+ *                     contactEmail:
+ *                       type: string
+ *                     projectDescription:
+ *                       type: string
+ *                     projectBrief:
+ *                       type: string
+ *                     projectDescriptionAndTasks:
+ *                       type: string
  *       400:
  *         description: Bad request, missing required fields
+ *       409:
+ *         description: Challenge already exists
  *       500:
  *         description: Internal server error
  */
@@ -46,7 +92,7 @@ router.post("/create", challengeController.createChallenge);
 
 /**
  * @swagger
- * /challenges/get-all:
+ * /api/v1/challenges/get-all:
  *   get:
  *     summary: Get all challenges
  *     description: Returns a list of all available challenges.
@@ -64,12 +110,30 @@ router.post("/create", challengeController.createChallenge);
  *                   id:
  *                     type: string
  *                     example: "64c9f4d5a9c7b9e1b2d3f6e7"
- *                   title:
+ *                   challengeTitle:
  *                     type: string
- *                   description:
+ *                     example: "Coding Challenge"
+ *                   deadline:
  *                     type: string
- *                   difficulty:
+ *                     example: "2025-05-01"
+ *                   duration:
  *                     type: string
+ *                     example: "48 hours"
+ *                   moneyPrize:
+ *                     type: number
+ *                     example: 5000
+ *                   contactEmail:
+ *                     type: string
+ *                     example: "user@example.com"
+ *                   projectDescription:
+ *                     type: string
+ *                     example: "Solve programming problems."
+ *                   projectBrief:
+ *                     type: string
+ *                     example: "A coding challenge for developers."
+ *                   projectDescriptionAndTasks:
+ *                     type: string
+ *                     example: "Complete five tasks in 48 hours."
  *       500:
  *         description: Internal server error
  */
@@ -77,7 +141,7 @@ router.get("/get-all", challengeController.getAllChallenges);
 
 /**
  * @swagger
- * /challenges/get-single-challenge/{id}:
+ * /api/v1/challenges/get-single-challenge/{id}:
  *   get:
  *     summary: Get a single challenge
  *     description: Retrieves details of a specific challenge by its ID.
@@ -92,6 +156,35 @@ router.get("/get-all", challengeController.getAllChallenges);
  *     responses:
  *       200:
  *         description: Challenge details retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 challengeTitle:
+ *                   type: string
+ *                   example: "Coding Challenge"
+ *                 deadline:
+ *                   type: string
+ *                   example: "2025-05-01"
+ *                 duration:
+ *                   type: string
+ *                   example: "48 hours"
+ *                 moneyPrize:
+ *                   type: number
+ *                   example: 5000
+ *                 contactEmail:
+ *                   type: string
+ *                   example: "user@example.com"
+ *                 projectDescription:
+ *                   type: string
+ *                   example: "Solve programming problems."
+ *                 projectBrief:
+ *                   type: string
+ *                   example: "A coding challenge for developers."
+ *                 projectDescriptionAndTasks:
+ *                   type: string
+ *                   example: "Complete five tasks in 48 hours."
  *       404:
  *         description: Challenge not found
  *       500:
@@ -101,7 +194,7 @@ router.get("/get-single-challenge/:id", challengeController.getChallengeById);
 
 /**
  * @swagger
- * /challenges/update-challenge/{id}:
+ * /api/v1/challenges/update-challenge/{id}:
  *   put:
  *     summary: Update a challenge
  *     description: Updates the details of an existing challenge by its ID.
@@ -120,13 +213,12 @@ router.get("/get-single-challenge/:id", challengeController.getChallengeById);
  *           schema:
  *             type: object
  *             properties:
- *               title:
+ *               challengeTitle:
  *                 type: string
  *               description:
  *                 type: string
  *               difficulty:
  *                 type: string
- *                 enum: [easy, medium, hard]
  *     responses:
  *       200:
  *         description: Challenge updated successfully
@@ -141,7 +233,7 @@ router.put("/update-challenge/:id", challengeController.updateChallenge);
 
 /**
  * @swagger
- * /challenges/delete-challenge/{id}:
+ * /api/v1/challenges/delete-challenge/{id}:
  *   delete:
  *     summary: Delete a challenge
  *     description: Deletes an existing challenge by its ID.

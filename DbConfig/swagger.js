@@ -9,8 +9,8 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: 'http://localhost:3000',
-      description: 'Local Development Server',
+      url: 'https://umurave-api.onrender.com',
+      description: 'producton  Server',
     },
   ],
   components: {
