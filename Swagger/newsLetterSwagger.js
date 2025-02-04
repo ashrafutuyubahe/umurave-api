@@ -1,8 +1,3 @@
-const express = require("express");
-const router = express.Router();
-
-const NewsLetterController = require("../Controllers/NewsLetterController");
-
 /**
  * @swagger
  * tags:
@@ -12,10 +7,10 @@ const NewsLetterController = require("../Controllers/NewsLetterController");
 
 /**
  * @swagger
- * /news-letter/subscribe:
+ * /newsletter/subscribe:
  *   post:
  *     summary: Subscribe to the newsletter
- *     description: Subscribes a user to the newsletter with their email.
+ *     description: Allows users to subscribe to the newsletter by providing their email.
  *     tags: [Newsletter]
  *     requestBody:
  *       required: true
@@ -26,15 +21,21 @@ const NewsLetterController = require("../Controllers/NewsLetterController");
  *             properties:
  *               email:
  *                 type: string
+ *                 format: email
  *                 example: "user@example.com"
  *     responses:
- *       201:
- *         description: User successfully subscribed
+ *       200:
+ *         description: Subscription successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Successfully subscribed to the newsletter."
  *       400:
- *         description: Bad request, invalid email format
+ *         description: Invalid request, email is missing or invalid
  *       500:
  *         description: Internal server error
  */
-router.post("/subscribe", NewsLetterController.SubscribeToNewsLetter);
-
-module.exports = router;

@@ -1,8 +1,3 @@
-const express = require("express");
-const router = express.Router();
-
-const challengeController = require("../Controllers/ChallengeController");
-
 /**
  * @swagger
  * tags:
@@ -42,7 +37,6 @@ const challengeController = require("../Controllers/ChallengeController");
  *       500:
  *         description: Internal server error
  */
-router.post("/create", challengeController.createChallenge);
 
 /**
  * @swagger
@@ -73,7 +67,6 @@ router.post("/create", challengeController.createChallenge);
  *       500:
  *         description: Internal server error
  */
-router.get("/get-all", challengeController.getAllChallenges);
 
 /**
  * @swagger
@@ -97,7 +90,6 @@ router.get("/get-all", challengeController.getAllChallenges);
  *       500:
  *         description: Internal server error
  */
-router.get("/get-single-challenge/:id", challengeController.getChallengeById);
 
 /**
  * @swagger
@@ -137,7 +129,6 @@ router.get("/get-single-challenge/:id", challengeController.getChallengeById);
  *       500:
  *         description: Internal server error
  */
-router.put("/update-challenge/:id", challengeController.updateChallenge);
 
 /**
  * @swagger
@@ -161,6 +152,4 @@ router.put("/update-challenge/:id", challengeController.updateChallenge);
  *       500:
  *         description: Internal server error
  */
-router.delete("/delete-challenge/:id", challengeController.deleteChallenge);
 
-module.exports = router;

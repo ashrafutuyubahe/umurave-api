@@ -1,10 +1,10 @@
-const User = require("../models/admin");
+const User = require("../Models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const logger = require("../utils/logger");
 
 
-exports.registerAdmin = async (req, res) => {
+
+exports.registerUser = async (req, res) => {
   try {
     const { userName, userEmail, adminPassword } = req.body;
 
@@ -22,38 +22,41 @@ exports.registerAdmin = async (req, res) => {
     const newAdmin = await User.create({
      userName,
      userEmail,
-     userPassword: hashedPassword,
-     userPhoneNumber,
+     userPassword: hashedPassword
+     
     });
 
-    
+
     res.status(201).json({ message: "you have successfully registered",
         newAdmin
 
      });
   } catch (err) {
     console.log(err);
-    logger.error("Error registeringuser:", err);
+    
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
-exports.loginAdmin = async (req, res) => {
+exports.loginUser = async (req, res) => {
   try {
     const { userEmail, userPassword } = req.body;
 
     const user = await User.findOne({userEmail});
-    if (!user || !(await bcrypt.compare(userPassword, user.adminPassword))) {
+
+
+    if (!user || !(await bcrypt.compare(userPassword, user.userPassword))) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
+
     const token = generateJWT(user);
     res.json({ 
-        userEmail,
+        message:"logged in successfully",
         token 
     });
   } catch (err) {
-    logger.error("Error logging in user:", err);
+    
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -92,7 +95,7 @@ exports.logOutUser = async (req, res) => {
       });
     });
   } catch (err) {
-    logger.error("Error logging outuser:", err);
+    
     return res.status(500).json({
       message: "Internal server error",
       error: true
@@ -101,8 +104,8 @@ exports.logOutUser = async (req, res) => {
 };
 
 
-function generateJWT(admin) {
-  return jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+function generateJWT(user) {
+  return jwt.sign({ userId: User.id }, process.env.JWT_SECRET, {
     expiresIn: "1d",
   });
 }
