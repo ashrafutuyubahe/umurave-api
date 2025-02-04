@@ -1,0 +1,12 @@
+
+const express = require("express");
+const router = express.Router();
+
+
+const NewsLetterController= require("../Controllers/NewsLetterController");
+
+router.post("/subscribe", NewsLetterController.SubscribeToNewsLetter);
+
+
+
+module.exports= router;
