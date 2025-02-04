@@ -14,7 +14,7 @@ const challengeController = require("../Controllers/ChallengeController");
 
 /**
  * @swagger
- * /api/v1/challenges/create:
+ * /api/v1/create:
  *   post:
  *     summary: Create a new challenge
  *     description: Creates a new challenge with the provided details.
@@ -92,7 +92,7 @@ router.post("/create", challengeController.createChallenge);
 
 /**
  * @swagger
- * /api/v1/challenges/get-all:
+ * /api/v1/get-all:
  *   get:
  *     summary: Get all challenges
  *     description: Returns a list of all available challenges.
@@ -141,7 +141,7 @@ router.get("/get-all", challengeController.getAllChallenges);
 
 /**
  * @swagger
- * /api/v1/challenges/get-single-challenge/{id}:
+ * /api/v1/get-single-challenge/{id}:
  *   get:
  *     summary: Get a single challenge
  *     description: Retrieves details of a specific challenge by its ID.
@@ -194,7 +194,7 @@ router.get("/get-single-challenge/:id", challengeController.getChallengeById);
 
 /**
  * @swagger
- * /api/v1/challenges/update-challenge/{id}:
+ * /api/v1/update-challenge/{id}:
  *   put:
  *     summary: Update a challenge
  *     description: Updates the details of an existing challenge by its ID.
@@ -233,7 +233,7 @@ router.put("/update-challenge/:id", challengeController.updateChallenge);
 
 /**
  * @swagger
- * /api/v1/challenges/delete-challenge/{id}:
+ * /api/v1/delete-challenge/{id}:
  *   delete:
  *     summary: Delete a challenge
  *     description: Deletes an existing challenge by its ID.
